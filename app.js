@@ -28,20 +28,32 @@ function calculateComfortScore(temp, humidity, wind_speed) {
 async function fetchWeather(city) {
     const dashboard = document.getElementById('dashboard');
     const loader = document.getElementById('loader');
-    
+    const errorPanel = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+
+    // Reset View
     dashboard.style.display = 'none';
+    errorPanel.style.display = 'none';
     loader.style.display = 'block';
 
     try {
         const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
-        const data = await response.json();
 
+        if (!response.ok) {
+            if (response.status === 500 || response.status === 404) {
+                throw new Error(`City "${city}" not found or satellite link lost. Please check the spelling.`);
+            }
+            throw new Error('Intelligence retrieval failed. Satellite connection unstable.');
+        }
+
+        const data = await response.json();
         if (data.error) throw new Error(data.error);
 
         renderDashboard(data);
     } catch (error) {
         console.error('Error fetching weather:', error);
-        alert('Failed to fetch weather data. Please try again later.');
+        errorText.textContent = error.message;
+        errorPanel.style.display = 'block';
     } finally {
         loader.style.display = 'none';
     }
