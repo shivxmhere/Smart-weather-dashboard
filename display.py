@@ -12,7 +12,7 @@ def score_color(score):
     else: return "red"
 
 def show_dashboard(hourly, city, best):
-    console.print(Panel(f"[bold cyan]🌤️  Smart Weather Dashboard — {city}[/bold cyan]", 
+    console.print(Panel(f"[bold cyan]Smart Weather Dashboard - {city}[/bold cyan]", 
                         box=box.DOUBLE))
 
     table = Table(show_header=True, header_style="bold magenta", box=box.SIMPLE)
@@ -37,6 +37,6 @@ def show_dashboard(hourly, city, best):
 
     console.print(table)
 
-    console.print("\n[bold green]🏆 Best 3 Windows to Go Outside / Study:[/bold green]")
+    console.print("\n[bold green]*** Best 3 Windows to Go Outside / Study: ***[/bold green]")
     for i, (time, score) in enumerate(best, 1):
-        console.print(f"  {i}. [cyan]{time}[/cyan] → Comfort Score: [{score_color(score)}]{score}/100[/{score_color(score)}]")
+        console.print(f"  {i}. [cyan]{time}[/cyan] : Comfort Score: [{score_color(score)}]{score}/100[/{score_color(score)}]")

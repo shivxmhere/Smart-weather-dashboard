@@ -19,4 +19,4 @@ def log_weather(hourly, city):
                 "humidity": h["humidity"],
                 "wind_speed": h["wind_speed"]
             })
-    print(f"\n✅ Weather logged to {filename}")
+    print(f"\nDONE: Weather logged to {filename}")
